@@ -1,5 +1,7 @@
 # 7 Days Walking Challenge
 
+Challenge inspired and accompanied by [**SEVEN DAYS WALKING**](https://ludovicoeinaudi.com/seven-days-walking/) album by [Ludovico Einaudi](https://ludovicoeinaudi.com/).
+
 ## Day 1 - Scaffolding a chain from scratch
 
 2024-03-15
