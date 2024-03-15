@@ -1,0 +1,15 @@
+syntax = "proto3";
+package sevdays.sevdays;
+
+import "amino/amino.proto";
+import "gogoproto/gogo.proto";
+
+option go_package = "sevdays/x/sevdays/types";
+
+// Params defines the parameters for the module.
+message Params {
+  option (amino.name) = "sevdays/x/sevdays/Params";
+  option (gogoproto.equal) = true;
+
+  
+}
