@@ -56,6 +56,7 @@ import (
 	sevdaysmodulekeeper "sevdays/x/sevdays/keeper"
 	// this line is used by starport scaffolding # stargate/app/moduleImport
 
+	wasmkeeper "github.com/CosmWasm/wasmd/x/wasm/keeper"
 	"sevdays/docs"
 )
 
@@ -109,6 +110,7 @@ type App struct {
 	ICAControllerKeeper icacontrollerkeeper.Keeper
 	ICAHostKeeper       icahostkeeper.Keeper
 	TransferKeeper      ibctransferkeeper.Keeper
+	WasmKeeper          wasmkeeper.Keeper
 
 	// Scoped IBC
 	ScopedIBCKeeper           capabilitykeeper.ScopedKeeper
