@@ -3,11 +3,12 @@ package sevdays_test
 import (
 	"testing"
 
-	"github.com/stretchr/testify/require"
 	keepertest "sevdays/testutil/keeper"
 	"sevdays/testutil/nullify"
-	"sevdays/x/sevdays/module"
+	sevdays "sevdays/x/sevdays/module"
 	"sevdays/x/sevdays/types"
+
+	"github.com/stretchr/testify/require"
 )
 
 func TestGenesis(t *testing.T) {
