@@ -69,3 +69,45 @@ This module is named `sevdays` (like the chain name) and is placed in the direct
 
 2024-03-18
 
+Tried following these instructions: [INTEGRATION](https://github.com/CosmWasm/wasmd/blob/main/INTEGRATION.md).
+
+Installed dependencies:
+
+```shell
+$ go get github.com/CosmWasm/wasmd/x/wasm/keeper@v0.50.0
+go: downloading github.com/CosmWasm/wasmd v0.50.0
+go: module github.com/golang/protobuf is deprecated: Use the "google.golang.org/protobuf" module instead.
+go: added github.com/CosmWasm/wasmd v0.50.0
+go: added github.com/CosmWasm/wasmvm v1.5.0
+```
+
+Added dependencies to `app.go` file and tried to compile:
+
+```shell
+$ ignite chain serve
+
+  cannot build app:                                                                          
+                                                                                             
+  error while running command go install github.com/bufbuild/buf/cmd/buf                     
+  github.com/cosmos/gogoproto/protoc-gen-gocosmos                                            
+  google.golang.org/grpc/cmd/protoc-gen-go-grpc                                              
+  google.golang.org/protobuf/cmd/protoc-gen-go                                               
+  github.com/cosmos/cosmos-proto/cmd/protoc-gen-go-pulsar                                    
+  github.com/grpc-ecosystem/grpc-gateway/protoc-gen-grpc-gateway                             
+  github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2: #                          
+  github.com/bufbuild/buf/private/pkg/protosource                                            
+  ../../../go/pkg/mod/github.com/bufbuild/buf@v1.28.1/private/pkg/protosource/file.go:146:39:
+  f.fileDescriptor.GetOptions().GetPhpGenericServices undefined (type                        
+  *descriptorpb.FileOptions has no field or method GetPhpGenericServices)                    
+  : exit status 1                                                                            
+  
+  Waiting for a fix before retrying...
+  
+  Press the 'q' key to stop serve
+```
+
+The first try failed...
+
+## Day 3 - Adding a `wasm` module to the chain
+
+(tbd)
