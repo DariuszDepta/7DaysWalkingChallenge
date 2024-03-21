@@ -53,6 +53,7 @@ import (
 	ibcexported "github.com/cosmos/ibc-go/v8/modules/core/exported"
 	"google.golang.org/protobuf/types/known/durationpb"
 
+	wasmtypes "github.com/CosmWasm/wasmd/x/wasm/types"
 	sevdaysmodulev1 "sevdays/api/sevdays/sevdays/module"
 	_ "sevdays/x/sevdays/module" // import for side-effects
 	sevdaysmoduletypes "sevdays/x/sevdays/types"
@@ -95,6 +96,7 @@ var (
 		circuittypes.ModuleName,
 		// chain modules
 		sevdaysmoduletypes.ModuleName,
+		wasmtypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/initGenesis
 	}
 
@@ -120,6 +122,7 @@ var (
 		ibcfeetypes.ModuleName,
 		// chain modules
 		sevdaysmoduletypes.ModuleName,
+		wasmtypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/beginBlockers
 	}
 
@@ -139,6 +142,7 @@ var (
 		ibcfeetypes.ModuleName,
 		// chain modules
 		sevdaysmoduletypes.ModuleName,
+		wasmtypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/endBlockers
 	}
 
@@ -159,6 +163,7 @@ var (
 		{Account: ibctransfertypes.ModuleName, Permissions: []string{authtypes.Minter, authtypes.Burner}},
 		{Account: ibcfeetypes.ModuleName},
 		{Account: icatypes.ModuleName},
+		{Account: wasmtypes.ModuleName, Permissions: []string{authtypes.Burner}},
 		// this line is used by starport scaffolding # stargate/app/maccPerms
 	}
 

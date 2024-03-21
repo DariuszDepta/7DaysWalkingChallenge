@@ -39,8 +39,8 @@ $ ignite chain serve
   🌍 Blockchain API: http://0.0.0.0:1317
   🌍 Token faucet: http://0.0.0.0:4500
   
-  ⋆ Data directory: /home/confio/.sevdays
-  ⋆ App binary: /home/confio/go/bin/sevdaysd
+  ⋆ Data directory: ~/.sevdays
+  ⋆ App binary: ~/go/bin/sevdaysd
   
   Press the 'q' key to stop serve
 ```
@@ -154,8 +154,149 @@ $ ignite app install -g github.com/ignite/apps/wasm
 🎉 Installed github.com/ignite/apps/wasm
 ```
 
-### Step 4. Scaffold a brand-new chain using Ignite CLI v28.3.0
+### Step 4. Scaffold, run and stop a brand-new chain using Ignite CLI v28.3.0
 
 ```shell
 $ ignite scaffold chain sevdays
+
+⭐️ Successfully created a new blockchain 'sevdays'.
+👉 Get started with the following commands:
+
+ % cd sevdays
+ % ignite chain serve
+
+Documentation: https://docs.ignite.com
+
+$ cd sevdays
+$ ignite chain serve
+
+  Blockchain is running
+  
+  ✔ Added account alice with address cosmos1rl0dzwylhk377s7tencn383zudz59rumunexyl and mnemonic:
+  eyebrow mouse cash danger try reform pledge develop suit play nut room evoke amateur sentence glad zebra daring speed forward noise blame brief manage
+  
+  ✔ Added account bob with address cosmos1gy4nz9ggajpkccf992usqehgmvdayaz56rhpjc and mnemonic:
+  quick bridge tilt tray coral shrimp town someone ethics nerve quarter shuffle wisdom capital endless drastic involve host close tongue knock family ketchup bike
+  
+  🌍 Tendermint node: http://0.0.0.0:26657
+  🌍 Blockchain API: http://0.0.0.0:1317
+  🌍 Token faucet: http://0.0.0.0:4500
+  
+  ⋆ Data directory: ~/.sevdays
+  ⋆ App binary: ~/go/bin/sevdaysd
+  
+  Press the 'q' key to stop serve
 ```
+
+Stop the chain by pressing `q`
+
+```shell
+
+  💿 Genesis state saved in ~/.ignite/local-chains/sevdays/exported_genesis.json
+  
+  𝓲 Stopped
+
+```
+
+### Step 5. Add Wasm support
+
+```shell
+$ ignite wasm add
+
+create app/ante.go
+modify app/app.go
+modify app/app_config.go
+modify app/ibc.go
+create app/wasm.go
+modify cmd/sevdaysd/cmd/commands.go
+
+🎉 CosmWasm added (`~/7DaysWalkingChallenge/sevdays`).
+```
+
+Re-run the chain:
+
+```shell
+$ ignite chain serve
+
+  cannot build app:                                                                   
+                                                                                      
+  error while running command go build -o ~/go/bin/sevdaysd -mod           
+  readonly -tags  -ldflags -X github.com/cosmos/cosmos-sdk/version.Name=Sevdays -X    
+  github.com/cosmos/cosmos-sdk/version.AppName=sevdaysd -X                            
+  github.com/cosmos/cosmos-sdk/version.Version=0.0.2-9a05f70d -X                      
+  github.com/cosmos/cosmos-sdk/version.Commit=9a05f70d94d773b7db71225eb7fd971f2b55c58d
+  -X github.com/cosmos/cosmos-sdk/version.BuildTags= -X                               
+  sevdays/cmd/sevdaysd/cmd.ChainID=sevdays -gcflags all=-N -l .: # sevdays/app        
+  ../../app/ibc.go:10:2: "github.com/cosmos/cosmos-sdk/types/module" imported and     
+  not used                                                                            
+  : exit status 1                                                                     
+  
+  Waiting for a fix before retrying...
+  
+  Press the 'q' key to stop serve
+```
+
+Remove the unused import:
+
+```shell
+$ sed -i '10d' app/ibc.go
+```
+
+Re-run the chain:
+
+```shell
+$ ignite chain serve
+
+  Blockchain is running
+  
+  👤 alice's account address: cosmos1rl0dzwylhk377s7tencn383zudz59rumunexyl
+  👤 bob's account address: cosmos1gy4nz9ggajpkccf992usqehgmvdayaz56rhpjc
+  
+  🌍 Tendermint node: http://0.0.0.0:26657
+  🌍 Blockchain API: http://0.0.0.0:1317
+  🌍 Token faucet: http://0.0.0.0:4500
+  
+  ⋆ Data directory: /home/confio/.sevdays
+  ⋆ App binary: /home/confio/go/bin/sevdaysd
+  
+  Press the 'q' key to stop serve
+```
+
+Step 6. Check `wasm`
+
+In another terminal, run:
+
+```shell
+$ sevdaysd q wasm pinned
+code_ids: []
+pagination:
+  next_key: null
+  total: "0"
+```
+
+🎉🎉🎉🎉🎉🎉🎉<br/>
+🎉🎉🎉🎉🎉🎉🎉<br/>
+🎉🎉🎉🎉🎉🎉🎉<br/>
+
+Step 7. `Every rose has its thorn.`
+
+Stop the chain by pressing `q`:
+
+```shell
+✘ panic: collections: not found: key 'no_key' of type github.com/cosmos/gogoproto/cosmwasm.wasm.v1.Params                                                                                                    
+                                                                                                                                                                                                           
+goroutine 122 [running]:                                                                                                                                                                                   
+github.com/CosmWasm/wasmd/x/wasm/keeper.Keeper.GetParams({{0x58efde0, 0xc00150ed80}, {0x59625a0, 0xc000c7dd00}, {0x5907830, 0xc0013252c0}, {0x58ef8c0, 0xc0007bf680}, {0x58eeea0, 0xc0028120a8}, ...}, ...)
+        /home/confio/go/pkg/mod/github.com/!cosm!wasm/wasmd@v0.50.0/x/wasm/keeper/keeper.go:124 +0x24d                                                                                                             
+github.com/CosmWasm/wasmd/x/wasm/keeper.ExportGenesis({{0x5929630, 0x74e1e00}, {0x59419a0, 0xc002e72c00}, {{0x0, 0x0}, {0x0, 0x0}, 0x13b, {0x0, ...}, ...}, ...}, ...)                                     
+        /home/confio/go/pkg/mod/github.com/!cosm!wasm/wasmd@v0.50.0/x/wasm/keeper/genesis.go:89 +0x106                                                                                                             
+github.com/CosmWasm/wasmd/x/wasm.AppModule.ExportGenesis({{}, {0x59625a0, 0xc000c7dd00}, 0xc00015fca8, {0x58eef20, 0xc000df9880}, {0x5907830, 0xc001325680}, {0x7f8ade336108, 0xc00166f558}, ...}, ...)    
+        /home/confio/go/pkg/mod/github.com/!cosm!wasm/wasmd@v0.50.0/x/wasm/module.go:194 +0x7b                                                                                                                     
+github.com/cosmos/cosmos-sdk/types/module.(*Manager).ExportGenesisForModules.func3({0x7f8adce66258, 0xc002abe690}, 0xc00275cba0)                                                                           
+        /home/confio/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.50.5/types/module/module.go:584 +0x13e                                                                                                             
+created by github.com/cosmos/cosmos-sdk/types/module.(*Manager).ExportGenesisForModules in goroutine 1                                                                                                     
+        /home/confio/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.50.5/types/module/module.go:582 +0xb69                                                                                                             
+: exit status 2                     
+```
+
+Is it something we can handle or fix?
