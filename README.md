@@ -73,7 +73,7 @@ This module is named `sevdays` (like the chain name) and is placed in the direct
 
 ## `Day 2.` Adding a `wasm` module to the chain 
 
-2024-03-18
+> 2024-03-18
 
 Tried following these instructions: [INTEGRATION](https://github.com/CosmWasm/wasmd/blob/main/INTEGRATION.md).
 
@@ -121,7 +121,7 @@ The first try has failed...
 
 ## `Day 3.` Adding a `wasm` module to the chain
 
-2024-03-21
+> 2024-03-21
 
 This time we base on this: [Ignite CLI Wasm App](https://github.com/ignite/apps/tree/main/wasm)
 
@@ -318,4 +318,4 @@ Is it something we can handle or fix?
 
 ## `Day 4.` Deploying a smart contract written using [Sylvia Framework](https://github.com/CosmWasm/sylvia)
 
-(tbd)
+> 2024-03-(tbd)
