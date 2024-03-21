@@ -6,7 +6,7 @@ Challenge inspired and accompanied by [**SEVEN DAYS WALKING**](https://ludovicoe
 
 ## `Day 1.` Scaffolding a chain from scratch
 
-2024-03-15
+> 2024-03-15
 
 The following steps are based on this documentation: [Ignite CLI](https://docs.ignite.com/)
 
