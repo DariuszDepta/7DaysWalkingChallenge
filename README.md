@@ -110,4 +110,52 @@ The first try failed...
 
 ## Day 3 - Adding a `wasm` module to the chain
 
-(tbd)
+2024-03-21
+
+This time we base on this: [Ignite CLI Wasm App](https://github.com/ignite/apps/tree/main/wasm)
+
+### Step 1. Delete the old blockchain
+
+```shell
+# make sure we are in 7DaysWalkingChallenge directory 
+$ ls
+data  README.md  sevdays
+# delete the configuration of the old blockchain 
+$ rm -rf ~/.sevdays
+# delete the old blockchain
+$ rm -rf sevdays
+```
+
+### Step 2. Install newest Ignite CLI
+
+Installation instructions can be found [here](https://docs.ignite.com/welcome/install).
+
+```shell
+$ curl https://get.ignite.com/cli! | bash
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100  4073    0  4073    0     0   5129      0 --:--:-- --:--:-- --:--:--  5136
+Installing ignite v28.3.0.....
+######################################################################## 100.0%
+Installed at /usr/local/bin/ignite
+```
+
+Check the installed version, should be equal or greater to the one shown below:
+```shell
+$ ignite version
+Ignite CLI version:             v28.3.0
+```
+
+### Step 3. Install Ignite CLI Wasm app
+
+```shell
+$ ignite app install -g github.com/ignite/apps/wasm
+✔ Done loading apps
+🎉 Installed github.com/ignite/apps/wasm
+```
+
+### Step 4. Scaffold a brand-new chain using Ignite CLI v28.3.0
+
+```shell
+$ ignite scaffold chain sevdays
+```
