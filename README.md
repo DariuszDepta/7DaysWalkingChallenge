@@ -278,7 +278,7 @@ pagination:
 🎉🎉🎉🎉🎉🎉🎉<br/>
 🎉🎉🎉🎉🎉🎉🎉<br/>
 
-Step 7. `Every rose has its thorn.`
+Step 7. 🌹 `Every rose has its thorn.` þ
 
 Stop the chain by pressing `q`:
 
@@ -298,5 +298,9 @@ created by github.com/cosmos/cosmos-sdk/types/module.(*Manager).ExportGenesisFor
         /home/confio/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.50.5/types/module/module.go:582 +0xb69                                                                                                             
 : exit status 2                     
 ```
+
+💣💣💣💣💣💣💣</br>
+💣💣💣💣💣💣💣</br>
+💣💣💣💣💣💣💣</br>
 
 Is it something we can handle or fix?
