@@ -1,0 +1,23 @@
+[package]
+name = "walking-contract"
+authors = ["Jan Woźniak <jnwznk@gmail.com>"]
+version = "0.1.0"
+edition = "2021"
+
+[features]
+library = []
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+cosmwasm-std = { version = "1", features = ["staking"] }
+sylvia = "0.9"
+serde = "1.0"                                            # required by sylvia's macro expansions
+schemars = "0.8"                                         # required by sylvia's macro expansions
+cosmwasm-schema = "1.5"
+cw-storage-plus = "1.2"
+
+
+[dev-dependencies]
+sylvia = { version = "0.9", features = ["mt"] }
