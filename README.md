@@ -2,6 +2,8 @@
 
 Challenge inspired and accompanied by [**SEVEN DAYS WALKING**](https://ludovicoeinaudi.com/seven-days-walking/) album by [Ludovico Einaudi](https://ludovicoeinaudi.com/).
 
+---
+
 ## `Day 1.` Scaffolding a chain from scratch
 
 2024-03-15
@@ -60,10 +62,14 @@ pagination:
   total: "2"
 ```
 
+🎉🎉🎉🎉🎉🎉🎉<br/>
+
 ### Remarks
 
 During scaffolding a new chain, a custom module was created automatically.
 This module is named `sevdays` (like the chain name) and is placed in the directory named `x`.
+
+---
 
 ## `Day 2.` Adding a `wasm` module to the chain 
 
@@ -106,7 +112,12 @@ $ ignite chain serve
   Press the 'q' key to stop serve
 ```
 
-The first try failed...
+💣💣💣💣💣💣💣</br>
+💣💣💣💣💣💣💣</br>
+
+The first try has failed...
+
+---
 
 ## `Day 3.` Adding a `wasm` module to the chain
 
