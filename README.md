@@ -315,3 +315,7 @@ created by github.com/cosmos/cosmos-sdk/types/module.(*Manager).ExportGenesisFor
 💣💣💣💣💣💣💣</br>
 
 Is it something we can handle or fix?
+
+## `Day 4.` Deploying a smart contract written using [Sylvia Framework](https://github.com/CosmWasm/sylvia)
+
+(tbd)
