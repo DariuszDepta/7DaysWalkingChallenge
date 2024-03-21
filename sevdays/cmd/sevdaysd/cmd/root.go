@@ -113,7 +113,7 @@ func NewRootCmd() *cobra.Command {
 		autoCliOpts.Modules[name] = mod
 	}
 
-	initRootCmd(rootCmd, clientCtx.TxConfig, clientCtx.InterfaceRegistry, clientCtx.Codec, moduleBasicManager)
+	initRootCmd(rootCmd, clientCtx.TxConfig, moduleBasicManager)
 
 	overwriteFlagDefaults(rootCmd, map[string]string{
 		flags.FlagChainID:        strings.ReplaceAll(app.Name, "-", ""),
@@ -131,7 +131,7 @@ func overwriteFlagDefaults(c *cobra.Command, defaults map[string]string) {
 	set := func(s *pflag.FlagSet, key, val string) {
 		if f := s.Lookup(key); f != nil {
 			f.DefValue = val
-			f.Value.Set(val)
+			_ = f.Value.Set(val)
 		}
 	}
 	for key, val := range defaults {
