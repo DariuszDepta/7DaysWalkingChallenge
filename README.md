@@ -273,7 +273,7 @@ $ ignite chain serve
   Press the 'q' key to stop serve
 ```
 
-Step 6. Check `wasm`
+### Step 6. Check `wasm`
 
 In another terminal, run:
 
@@ -289,7 +289,9 @@ pagination:
 🎉🎉🎉🎉🎉🎉🎉<br/>
 🎉🎉🎉🎉🎉🎉🎉<br/>
 
-Step 7. 🌹 `Every rose has its thorn.` þ
+### Step 7. `Every rose (🌹) has its thorn (þ).`
+
+> þ - [thorn](https://en.wikipedia.org/wiki/Thorn_(letter))
 
 Stop the chain by pressing `q`:
 
