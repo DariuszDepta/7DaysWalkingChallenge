@@ -393,14 +393,9 @@ pagination:
   total: "0"
 ```
 
-💣💣💣💣💣💣💣</br>
-💣💣💣💣💣💣💣</br>
-💣💣💣💣💣💣💣</br>
-💣💣💣💣💣💣💣</br>
-
 Smart contract was not deployed! Let's check why.
 
-Try to store the contract's binary once again:
+Let's try to store the contract's binary once again:
 
 ```shell
 $ sevdaysd tx wasm store ./walking-contract/target/wasm32-unknown-unknown/release/walking_contract.wasm --from alice --chain-id sevdays --gas 10000000 -y
@@ -419,7 +414,7 @@ tx: null
 txhash: 6FE7640A637A8D35C56661A6CDBD9E638C20B50244774F63AF871247A1C72E30
 ```
 
-Now lets query the transaction:
+Now let's query the transaction:
 
 ```shell
 $ sevdaysd q tx 6FE7640A637A8D35C56661A6CDBD9E638C20B50244774F63AF871247A1C72E30
@@ -433,11 +428,13 @@ To install `yq` type:
 $ pip install yq
 ```
 
-Now lets query the transaction once again, but with wasm dump filtered out:
+Now let's query the transaction once again, but with the wasm dump filtered out:
 
 ```shell
 $ sevdaysd q tx 6FE7640A637A8D35C56661A6CDBD9E638C20B50244774F63AF871247A1C72E30 | yq 'del(.tx.body.messages[0].wasm_byte_code)'
 ```
+
+The transaction looks like this:
 
 ```json
 {
@@ -540,7 +537,14 @@ The error is:
 "raw_log": "failed to execute message; message index: 0: uncompress wasm archive: max 819200 bytes: exceeds limit: create wasm contract failed",
 ```
 
+💣💣💣💣💣💣💣</br>
+💣💣💣💣💣💣💣</br>
+💣💣💣💣💣💣💣</br>
+💣💣💣💣💣💣💣</br>
+
 So there must be an option to increase this parameter...
+
+[„Kierunek-wschód! Tam musi być jakaś cywilizacja”](https://www.pap.pl/aktualnosci/news%2C452006%2Ckierunek-wschod-tam-musi-byc-jakas-cywilizacja-mija-35-lat-od-premiery)
 
 ## `Day 5.` Deploying a smart contract (continued)
 
