@@ -583,5 +583,64 @@ func New(
 Add all needed imports. The full diff patch is shown below:
 
 ```text
+diff --git a/sevdays/app/app.go b/sevdays/app/app.go
+index 830a26f..4bdac9c 100644
+--- a/sevdays/app/app.go
++++ b/sevdays/app/app.go
+@@ -19,6 +19,7 @@ import (
+ 	_ "cosmossdk.io/x/nft/module" // import for side-effects
+ 	_ "cosmossdk.io/x/upgrade"    // import for side-effects
+ 	upgradekeeper "cosmossdk.io/x/upgrade/keeper"
++	wasmtypes "github.com/CosmWasm/wasmd/x/wasm/types"
+ 	dbm "github.com/cosmos/cosmos-db"
+ 	"github.com/cosmos/cosmos-sdk/baseapp"
+ 	"github.com/cosmos/cosmos-sdk/client"
+@@ -75,9 +76,11 @@ import (
+ 	ibctransferkeeper "github.com/cosmos/ibc-go/v8/modules/apps/transfer/keeper"
+ 	ibckeeper "github.com/cosmos/ibc-go/v8/modules/core/keeper"
+ 
++	sevdaysmodulekeeper "sevdays/x/sevdays/keeper"
++
+ 	wasmkeeper "github.com/CosmWasm/wasmd/x/wasm/keeper"
+ 	tmproto "github.com/cometbft/cometbft/proto/tendermint/types"
+-	sevdaysmodulekeeper "sevdays/x/sevdays/keeper"
++
+ 	// this line is used by starport scaffolding # stargate/app/moduleImport
+ 
+ 	"sevdays/docs"
+@@ -202,6 +205,7 @@ func New(
+ 	appOpts servertypes.AppOptions,
+ 	baseAppOptions ...func(*baseapp.BaseApp),
+ ) (*App, error) {
++	overrideWasmVariables()
+ 	var (
+ 		app        = &App{}
+ 		appBuilder *runtime.AppBuilder
+@@ -475,3 +479,11 @@ func BlockedAddresses() map[string]bool {
+ 	}
+ 	return result
+ }
++
++// overrideWasmVariables overrides the wasm variables to:
++//   - allow for larger wasm files
++func overrideWasmVariables() {
++	// Override Wasm size limitation from WASMD.
++	wasmtypes.MaxWasmSize = 1024 * 1024 * 2.5 // ~2.5 mb
++	wasmtypes.MaxProposalWasmSize = wasmtypes.MaxWasmSize
++}
+```
 
+(tbd)
+
+```shell
+$ sevdaysd tx wasm store ./walking-contract/target/wasm32-unknown-unknown/release/walking_contract.wasm --from alice --chain-id sevdays --gas 10000000 -y
+$ sevdaysd q wasm list-code
+$ sevdaysd q wasm code-info 1
+$ sevdaysd tx wasm instantiate 1 {} --label walking_contract --no-admin --from alice --chain-id sevdays
+$ sevdaysd q wasm list-contract-by-code 1
+$ sevdaysd q wasm contract cosmos14hj2tavq8fpesdwxxcu44rty3hh90vhujrvcmstl4zr3txmfvw9s4hmalr
+$ sevdaysd tx wasm execute cosmos14hj2tavq8fpesdwxxcu44rty3hh90vhujrvcmstl4zr3txmfvw9s4hmalr '{"increment":{}}' --from alice --chain-id sevdays
+$ sevdaysd q wasm contract-state smart cosmos14hj2tavq8fpesdwxxcu44rty3hh90vhujrvcmstl4zr3txmfvw9s4hmalr '{"count":{}}'
+$ sevdaysd tx wasm execute cosmos14hj2tavq8fpesdwxxcu44rty3hh90vhujrvcmstl4zr3txmfvw9s4hmalr '{"increment":{}}' --from alice --chain-id sevdays
+$ sevdaysd q wasm contract-state smart cosmos14hj2tavq8fpesdwxxcu44rty3hh90vhujrvcmstl4zr3txmfvw9s4hmalr '{"count":{}}'
 ```
