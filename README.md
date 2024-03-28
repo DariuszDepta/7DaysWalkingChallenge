@@ -322,4 +322,215 @@ Is it something we can handle or fix?
 
 > 2024-03-27
 
+In the [walking-contract](./walking-contract) directory there is a smart contract prepared.
+This simplistic smart contract was designed using [Sylvia Framework](https://github.com/CosmWasm/sylvia). 
+
+### Step 1. Compile smart contract
+
+```shell
+$ ls
+data  README.md  sevdays  walking-contract
+$ cd walking-contract
+$ cargo wasm
+```
+
+The `Wasm` compiled binary named `walking_contract.wasm` is available in `target/wasm32-unknown-unknown/release/`
+
+### Step 2. Start the chain
+
+```shell
+$ cd ../sevdays
+$ ignite chain serve
+
+  Blockchain is running
+  
+  👤 alice's account address: cosmos1mn8un49p58dr6j2f85u5axnd8dyqlgmmfnfc6h
+  👤 bob's account address: cosmos1rwng8afqdgam45x5m75e6z9mc6pwrhfyust477
+  
+  🌍 Tendermint node: http://0.0.0.0:26657
+  🌍 Blockchain API: http://0.0.0.0:1317
+  🌍 Token faucet: http://0.0.0.0:4500
+  
+  ⋆ Data directory: /home/confio/.sevdays
+  ⋆ App binary: /home/confio/go/bin/sevdaysd
+  
+  Press the 'q' key to stop serve
+```
+
+### Step 3. Store the smart contract on the chain
+
+Open another terminal. Make sure you are in the right directory, and you can run `sevdaysd`:
+
+```shell
+$ ls
+data  README.md  sevdays  walking-contract
+
+$ which sevdaysd
+~/go/bin/sevdaysd
+```
+
+Store contract's binary on a chain:
+
+```shell
+$ sevdaysd tx wasm store ./walking-contract/target/wasm32-unknown-unknown/release/walking_contract.wasm --from alice --chain-id sevdays --gas 10000000 -y
+```
+
+Query stored wasm binaries:
+
+```shell
+$ sevdaysd q wasm list-code
+code_infos: []
+pagination:
+  next_key: null
+  total: "0"
+```
+
+💣💣💣💣💣💣💣</br>
+💣💣💣💣💣💣💣</br>
+💣💣💣💣💣💣💣</br>
+💣💣💣💣💣💣💣</br>
+
+Smart contract was not deployed! Let's check why.
+
+Try to store the contract's binary once again:
+
+```shell
+$ sevdaysd tx wasm store ./walking-contract/target/wasm32-unknown-unknown/release/walking_contract.wasm --from alice --chain-id sevdays --gas 10000000 -y
+code: 0
+codespace: ""
+data: ""
+events: []
+gas_used: "0"
+gas_wanted: "0"
+height: "0"
+info: ""
+logs: []
+raw_log: ""
+timestamp: ""
+tx: null
+txhash: 6FE7640A637A8D35C56661A6CDBD9E638C20B50244774F63AF871247A1C72E30
+```
+
+Now lets query the transaction:
+
+```shell
+$ sevdaysd q tx 6FE7640A637A8D35C56661A6CDBD9E638C20B50244774F63AF871247A1C72E30
+```
+
+Unfortunately the whole wasm binary is displayed to the console, so the output is hard to read without long scrolling.
+But the output is in YAML format, so let's use `yq` to filer out the wasm binary dump. 
+
+To install `yq` type:
+```shell
+$ pip install yq
+```
+
+Now lets query the transaction once again, but with wasm dump filtered out:
+
+```shell
+$ sevdaysd q tx 6FE7640A637A8D35C56661A6CDBD9E638C20B50244774F63AF871247A1C72E30 | yq 'del(.tx.body.messages[0].wasm_byte_code)'
+```
+
+```json
+{
+  "code": 2,
+  "codespace": "wasm",
+  "data": "",
+  "events": [
+    {
+      "attributes": [
+        {
+          "index": true,
+          "key": "fee",
+          "value": ""
+        },
+        {
+          "index": true,
+          "key": "fee_payer",
+          "value": "cosmos1j2sy5h7uks4f55wrqsmyfrlxfys20ake9026e3"
+        }
+      ],
+      "type": "tx"
+    },
+    {
+      "attributes": [
+        {
+          "index": true,
+          "key": "acc_seq",
+          "value": "cosmos1j2sy5h7uks4f55wrqsmyfrlxfys20ake9026e3/3"
+        }
+      ],
+      "type": "tx"
+    },
+    {
+      "attributes": [
+        {
+          "index": true,
+          "key": "signature",
+          "value": "wiCaKZ7vlswjAjLyqCsds5Svq96ZLUo8laFbDwvXSrIAlgjs6imMcDXpKokgYTmjl453EPNWgCbfY1Ry90/NYQ=="
+        }
+      ],
+      "type": "tx"
+    }
+  ],
+  "gas_used": "4418391",
+  "gas_wanted": "10000000",
+  "height": "2665",
+  "info": "",
+  "logs": [],
+  "raw_log": "failed to execute message; message index: 0: uncompress wasm archive: max 819200 bytes: exceeds limit: create wasm contract failed",
+  "timestamp": "2024-03-28T10:26:26Z",
+  "tx": {
+    "@type": "/cosmos.tx.v1beta1.Tx",
+    "auth_info": {
+      "fee": {
+        "amount": [],
+        "gas_limit": "10000000",
+        "granter": "",
+        "payer": ""
+      },
+      "signer_infos": [
+        {
+          "mode_info": {
+            "single": {
+              "mode": "SIGN_MODE_DIRECT"
+            }
+          },
+          "public_key": {
+            "@type": "/cosmos.crypto.secp256k1.PubKey",
+            "key": "A9tNsCSNtKk93c1ENAy1v0fXKsertI32vStSX0MaugXo"
+          },
+          "sequence": "3"
+        }
+      ],
+      "tip": null
+    },
+    "body": {
+      "extension_options": [],
+      "memo": "",
+      "messages": [
+        {
+          "@type": "/cosmwasm.wasm.v1.MsgStoreCode",
+          "instantiate_permission": null,
+          "sender": "cosmos1j2sy5h7uks4f55wrqsmyfrlxfys20ake9026e3"
+        }
+      ],
+      "non_critical_extension_options": [],
+      "timeout_height": "0"
+    },
+    "signatures": [
+      "wiCaKZ7vlswjAjLyqCsds5Svq96ZLUo8laFbDwvXSrIAlgjs6imMcDXpKokgYTmjl453EPNWgCbfY1Ry90/NYQ=="
+    ]
+  },
+  "txhash": "6FE7640A637A8D35C56661A6CDBD9E638C20B50244774F63AF871247A1C72E30"
+}
+```
+
+The error is:
+
+```text
+"raw_log": "failed to execute message; message index: 0: uncompress wasm archive: max 819200 bytes: exceeds limit: create wasm contract failed",
+```
+
+So there must be an option to increase this parameter...
 
