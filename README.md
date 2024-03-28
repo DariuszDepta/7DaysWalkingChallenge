@@ -547,3 +547,15 @@ So there must be an option to increase this parameter...
 ## `Day 5.` Deploying a smart contract (continued)
 
 > 2024-03-(tbd)
+
+...and [Pinò](https://github.com/pinosu) has spotted it. There is a parameter called
+
+```Go
+// overrideWasmVariables overrides the wasm variables to:
+//   - allow for larger wasm files
+func overrideWasmVariables() {
+	// Override Wasm size limitation from WASMD.
+	wasmtypes.MaxWasmSize = 1024 * 1024 * 2.5 // ~2.5 mb
+	wasmtypes.MaxProposalWasmSize = wasmtypes.MaxWasmSize
+}
+```
