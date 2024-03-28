@@ -123,7 +123,7 @@ The first try has failed...
 
 > 2024-03-21
 
-This time we base on this: [Ignite CLI Wasm App](https://github.com/ignite/apps/tree/main/wasm)
+This time we are basing on this: [Ignite CLI Wasm App](https://github.com/ignite/apps/tree/main/wasm)
 
 ### Step 1. Delete the old blockchain
 
