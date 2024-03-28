@@ -289,7 +289,7 @@ pagination:
 🎉🎉🎉🎉🎉🎉🎉<br/>
 🎉🎉🎉🎉🎉🎉🎉<br/>
 
-### Step 7. `Every rose (🌹) has its thorn (þ).`
+### Step 7. `Every rose 🌹 has its thorn þ.`
 
 > þ - [thorn](https://en.wikipedia.org/wiki/Thorn_(letter))
 
@@ -320,4 +320,6 @@ Is it something we can handle or fix?
 
 ## `Day 4.` Deploying a smart contract written using [Sylvia Framework](https://github.com/CosmWasm/sylvia)
 
-> 2024-03-(tbd)
+> 2024-03-27
+
+
