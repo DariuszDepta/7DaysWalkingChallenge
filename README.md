@@ -534,3 +534,6 @@ The error is:
 
 So there must be an option to increase this parameter...
 
+## `Day 5.` Deploying a smart contract (continued)
+
+> 2024-03-(tbd)
