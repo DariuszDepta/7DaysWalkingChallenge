@@ -79,7 +79,7 @@ This module is named `sevdays` (like the chain name) and is placed in the direct
 
 ---
 
-## `Day 2.` Adding a `wasm` module to the chain 
+## `Day 2.` Adding a `wasm` module to the chain
 
 > 2024-03-18
 
