@@ -548,14 +548,40 @@ So there must be an option to increase this parameter...
 
 > 2024-03-(tbd)
 
-...and [Pinò](https://github.com/pinosu) has spotted it. There is a parameter called
+...and [Pinò](https://github.com/pinosu) has spotted it. There is a parameter called `MaxWasmSize` in `wasmd` which
+must be adjusted to allow bigger contracts to be storable on the chain.
+
+Add the following function to the end of `app.go` file:
 
 ```Go
-// overrideWasmVariables overrides the wasm variables to:
-//   - allow for larger wasm files
+// overrideWasmVariables overrides the wasm variables.
 func overrideWasmVariables() {
-	// Override Wasm size limitation from WASMD.
-	wasmtypes.MaxWasmSize = 1024 * 1024 * 2.5 // ~2.5 mb
+	// Override Wasm size limitation from `wasmd`.
+	wasmtypes.MaxWasmSize = 2.5 * 1024 * 1024 // ~2.5 mb
 	wasmtypes.MaxProposalWasmSize = wasmtypes.MaxWasmSize
 }
+```
+
+Call this function on initialization in `app.go` file:
+
+```Go
+// New returns a reference to an initialized App.
+func New(
+	logger log.Logger,
+	db dbm.DB,
+	traceStore io.Writer,
+	loadLatest bool,
+	appOpts servertypes.AppOptions,
+	baseAppOptions ...func(*baseapp.BaseApp),
+) (*App, error) {
+	overrideWasmVariables() // <--- call it here!
+	var (
+		app        = &App{}
+		appBuilder *runtime.AppBuilder
+```
+
+Add all needed imports. The full diff patch is shown below:
+
+```text
+
 ```
