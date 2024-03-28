@@ -8,7 +8,7 @@ Challenge inspired and accompanied by [**SEVEN DAYS WALKING**](https://ludovicoe
 - [Day 2](#day-2-adding-a-wasm-module-to-the-chain)
 - [Day 3](#day-3-adding-a-wasm-module-to-the-chain)
 - [Day 4](#day-4-deploying-a-smart-contract-written-using-sylvia-framework)
-- [Day 4](#day-5-deploying-a-smart-contract-continued) 
+- [Day 5](#day-5-deploying-a-smart-contract-continued) 
 
 ---
 
