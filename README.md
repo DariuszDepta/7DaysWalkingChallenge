@@ -544,8 +544,6 @@ The error is:
 
 So there must be an option to increase this parameter...
 
-[„Kierunek-wschód! Tam musi być jakaś cywilizacja”](https://www.pap.pl/aktualnosci/news%2C452006%2Ckierunek-wschod-tam-musi-byc-jakas-cywilizacja-mija-35-lat-od-premiery)
-
 ## `Day 5.` Deploying a smart contract (continued)
 
 > 2024-03-(tbd)
