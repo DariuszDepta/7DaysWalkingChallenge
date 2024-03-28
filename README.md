@@ -546,7 +546,7 @@ So there must be an option to increase this parameter...
 
 ## `Day 5.` Deploying a smart contract (continued)
 
-> 2024-03-(tbd)
+> 2024-03-28
 
 ...and [Pinò](https://github.com/pinosu) has spotted it. There is a parameter called `MaxWasmSize` in `wasmd` which
 must be adjusted to allow bigger contracts to be storable on the chain.
