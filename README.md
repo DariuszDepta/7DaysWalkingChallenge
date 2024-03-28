@@ -4,11 +4,11 @@ Challenge inspired and accompanied by [**SEVEN DAYS WALKING**](https://ludovicoe
 
 ---
 
-- [Day 1](#day-1-scaffolding-a-chain-from-scratch)
-- [Day 2](#day-2-adding-a-wasm-module-to-the-chain)
-- [Day 3](#day-3-adding-a-wasm-module-to-the-chain)
-- [Day 4](#day-4-deploying-a-smart-contract-written-using-sylvia-framework)
-- [Day 5](#day-5-deploying-a-smart-contract-continued) 
+- [Day 1.](#day-1-scaffolding-a-chain-from-scratch) Scaffolding a chain from scratch
+- [Day 2.](#day-2-adding-a-wasm-module-to-the-chain) Adding a `wasm` module to the chain
+- [Day 3.](#day-3-adding-a-wasm-module-to-the-chain-continued) Adding a `wasm` module to the chain (continued)
+- [Day 4.](#day-4-deploying-a-smart-contract-written-using-sylvia-framework) Deploying a smart contract written using [Sylvia Framework](https://github.com/CosmWasm/sylvia)
+- [Day 5.](#day-5-deploying-a-smart-contract-continued) Deploying a smart contract (continued)
 
 ---
 
@@ -127,7 +127,7 @@ The first try has failed...
 
 ---
 
-## `Day 3.` Adding a `wasm` module to the chain
+## `Day 3.` Adding a `wasm` module to the chain (continued)
 
 > 2024-03-21
 
