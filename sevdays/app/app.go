@@ -19,6 +19,7 @@ import (
 	_ "cosmossdk.io/x/nft/module" // import for side-effects
 	_ "cosmossdk.io/x/upgrade"    // import for side-effects
 	upgradekeeper "cosmossdk.io/x/upgrade/keeper"
+	wasmtypes "github.com/CosmWasm/wasmd/x/wasm/types"
 	dbm "github.com/cosmos/cosmos-db"
 	"github.com/cosmos/cosmos-sdk/baseapp"
 	"github.com/cosmos/cosmos-sdk/client"
@@ -75,9 +76,11 @@ import (
 	ibctransferkeeper "github.com/cosmos/ibc-go/v8/modules/apps/transfer/keeper"
 	ibckeeper "github.com/cosmos/ibc-go/v8/modules/core/keeper"
 
+	sevdaysmodulekeeper "sevdays/x/sevdays/keeper"
+
 	wasmkeeper "github.com/CosmWasm/wasmd/x/wasm/keeper"
 	tmproto "github.com/cometbft/cometbft/proto/tendermint/types"
-	sevdaysmodulekeeper "sevdays/x/sevdays/keeper"
+
 	// this line is used by starport scaffolding # stargate/app/moduleImport
 
 	"sevdays/docs"
@@ -202,6 +205,7 @@ func New(
 	appOpts servertypes.AppOptions,
 	baseAppOptions ...func(*baseapp.BaseApp),
 ) (*App, error) {
+	overrideWasmVariables()
 	var (
 		app        = &App{}
 		appBuilder *runtime.AppBuilder
@@ -474,4 +478,12 @@ func BlockedAddresses() map[string]bool {
 		}
 	}
 	return result
+}
+
+// overrideWasmVariables overrides the wasm variables to:
+//   - allow for larger wasm files
+func overrideWasmVariables() {
+	// Override Wasm size limitation from WASMD.
+	wasmtypes.MaxWasmSize = 1024 * 1024 * 2.5 // ~2.5 mb
+	wasmtypes.MaxProposalWasmSize = wasmtypes.MaxWasmSize
 }
