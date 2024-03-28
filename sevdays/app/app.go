@@ -76,11 +76,9 @@ import (
 	ibctransferkeeper "github.com/cosmos/ibc-go/v8/modules/apps/transfer/keeper"
 	ibckeeper "github.com/cosmos/ibc-go/v8/modules/core/keeper"
 
-	sevdaysmodulekeeper "sevdays/x/sevdays/keeper"
-
 	wasmkeeper "github.com/CosmWasm/wasmd/x/wasm/keeper"
 	tmproto "github.com/cometbft/cometbft/proto/tendermint/types"
-
+	sevdaysmodulekeeper "sevdays/x/sevdays/keeper"
 	// this line is used by starport scaffolding # stargate/app/moduleImport
 
 	"sevdays/docs"
