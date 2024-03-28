@@ -4,7 +4,9 @@ Challenge inspired and accompanied by [**SEVEN DAYS WALKING**](https://ludovicoe
 
 ---
 
-- [Day 1](#day-1.-scaffolding-a-chain-from-scratch)
+- [Day 1](#day-1-scaffolding-a-chain-from-scratch)
+- [Day 2](#day-2-adding-a-wasm-module-to-the-chain)
+- [Day 3](#day-3-adding-a-wasm-module-to-the-chain)
 ---
 
 ## `Day 1.` Scaffolding a chain from scratch
