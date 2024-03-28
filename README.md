@@ -4,6 +4,9 @@ Challenge inspired and accompanied by [**SEVEN DAYS WALKING**](https://ludovicoe
 
 ---
 
+- [Day 1](#day-1.-scaffolding-a-chain-from-scratch)
+---
+
 ## `Day 1.` Scaffolding a chain from scratch
 
 > 2024-03-15
