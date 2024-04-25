@@ -75,6 +75,9 @@ import (
 	ibctransferkeeper "github.com/cosmos/ibc-go/v8/modules/apps/transfer/keeper"
 	ibckeeper "github.com/cosmos/ibc-go/v8/modules/core/keeper"
 
+	wasmkeeper "github.com/CosmWasm/wasmd/x/wasm/keeper"
+	wasmtypes "github.com/CosmWasm/wasmd/x/wasm/types"
+	tmproto "github.com/cometbft/cometbft/proto/tendermint/types"
 	sevdaysmodulekeeper "sevdays/x/sevdays/keeper"
 	// this line is used by starport scaffolding # stargate/app/moduleImport
 
@@ -141,6 +144,11 @@ type App struct {
 	ScopedICAHostKeeper       capabilitykeeper.ScopedKeeper
 
 	SevdaysKeeper sevdaysmodulekeeper.Keeper
+
+	// CosmWasm
+	WasmKeeper       wasmkeeper.Keeper
+	ScopedWasmKeeper capabilitykeeper.ScopedKeeper
+
 	// this line is used by starport scaffolding # stargate/app/keeperDeclaration
 
 	// simulation manager
@@ -195,6 +203,7 @@ func New(
 	appOpts servertypes.AppOptions,
 	baseAppOptions ...func(*baseapp.BaseApp),
 ) (*App, error) {
+	overrideWasmVariables()
 	var (
 		app        = &App{}
 		appBuilder *runtime.AppBuilder
@@ -357,7 +366,9 @@ func New(
 		return nil, err
 	}
 
-	return app, nil
+	return app, app.WasmKeeper.
+		InitializePinnedCodes(app.NewUncachedContext(true, tmproto.Header{}))
+
 }
 
 // LegacyAmino returns App's amino codec.
@@ -465,4 +476,11 @@ func BlockedAddresses() map[string]bool {
 		}
 	}
 	return result
+}
+
+// overrideWasmVariables overrides the wasm variables.
+func overrideWasmVariables() {
+	// Override Wasm size limitation from `wasmd`.
+	wasmtypes.MaxWasmSize = 2.5 * 1024 * 1024 // ~2.5 mb
+	wasmtypes.MaxProposalWasmSize = wasmtypes.MaxWasmSize
 }

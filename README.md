@@ -67,8 +67,11 @@ $ ignite chain serve
 
   Blockchain is running
   
-  👤 alice's account address: cosmos135hm0swcpvc0ja0dt47zafwdzk24kdlptj7wer
-  👤 bob's account address: cosmos1e6kfufjr7ndr9hc4l6mahzvjtq9envrushfsse
+  ✔ Added account alice with address cosmos1pzgy9e0cfzsp8uyeg8ux67su2w57erdl8se9dy and mnemonic:
+  mass coconut churn train control switch reward glory jar limb daughter rent knock one machine furnace pioneer clip shed unusual biology sausage wood hotel
+  
+  ✔ Added account bob with address cosmos1jmfnuxsyyg92treap2055qnkeyq6ksck9ye0cc and mnemonic:
+  come wedding destroy hen replace object cry obscure jealous entire decide scare family random diamond call cactus eternal era year brand stomach merge bench
   
   🌍 Tendermint node: http://0.0.0.0:26657
   🌍 Blockchain API: http://0.0.0.0:1317
@@ -80,12 +83,38 @@ $ ignite chain serve
   Press the 'q' key to stop serve
 ```
 
-### Test the chain
-
-Open a new terminal and run:
+Press `q` to stop the chain.
 
 ```shell
-$  sevdaysd query bank balances cosmos135hm0swcpvc0ja0dt47zafwdzk24kdlptj7wer
+  💿 Genesis state saved in ~/.ignite/local-chains/sevdays/exported_genesis.json
+  
+  𝓲 Stopped
+```
+
+### Test the chain
+
+```shell
+$ ignite chain serve
+
+  Blockchain is running
+  
+  👤 alice's account address: cosmos1pzgy9e0cfzsp8uyeg8ux67su2w57erdl8se9dy
+  👤 bob's account address: cosmos1jmfnuxsyyg92treap2055qnkeyq6ksck9ye0cc
+  
+  🌍 Tendermint node: http://0.0.0.0:26657
+  🌍 Blockchain API: http://0.0.0.0:1317
+  🌍 Token faucet: http://0.0.0.0:4500
+  
+  ⋆ Data directory: ~/.sevdays
+  ⋆ App binary: ~/go/bin/sevdaysd
+  
+  Press the 'q' key to stop serve
+```
+
+Open another terminal and run:
+
+```shell
+$ sevdaysd query bank balances cosmos1pzgy9e0cfzsp8uyeg8ux67su2w57erdl8se9dy
 balances:
 - amount: "100000000"
   denom: stake
@@ -95,11 +124,19 @@ pagination:
   total: "2"
 ```
 
+Press `q` to stop the chain.
+
+```shell
+  💿 Genesis state saved in ~/.ignite/local-chains/sevdays/exported_genesis.json
+  
+  𝓲 Stopped
+```
+
 🎉🎉🎉🎉🎉🎉🎉<br/>
 
 ### Remarks
 
-During scaffolding a new chain, a custom module was created automatically.
+During scaffolding a new chain, a custom module is created automatically.
 This module is named `sevdays` (like the chain name) and is placed in the directory named `x`.
 
 ---
@@ -351,6 +388,11 @@ created by github.com/cosmos/cosmos-sdk/types/module.(*Manager).ExportGenesisFor
 
 Is it something we can handle or fix?
 
+The error shown above disappears after single state reset: 
+```shell
+$ ignite chain serve --reset-once
+```
+
 ## `Day 4.` Deploying a smart contract written using [Sylvia Framework](https://github.com/CosmWasm/sylvia)
 
 > 2024-03-27
@@ -573,10 +615,12 @@ So there must be an option to increase this parameter...
 
 > 2024-03-28
 
+### Step 1. Fix: change the maximum allowed contract size 
+
 ...and [Pinò](https://github.com/pinosu) has spotted it. There is a parameter called `MaxWasmSize` in `wasmd` which
 must be adjusted to allow bigger contracts to be storable on the chain.
 
-Add the following function to the end of `app.go` file:
+Add the following function to the end of the `app.go` file:
 
 ```Go
 // overrideWasmVariables overrides the wasm variables.
@@ -655,17 +699,245 @@ index 830a26f..4bdac9c 100644
 +}
 ```
 
-(tbd)
+### Step 2. Store the contract on the chain
+
+Start the chain:
+
+```shell
+$ ignite chain serve
+
+  Blockchain is running
+  
+  👤 alice's account address: cosmos1rche4ezyvjfd5wc4trc78r7jv9g0en4eln8p6g
+  👤 bob's account address: cosmos1pkt49ry08kmen25xslrs969lkpj7u93trha34r
+  
+  🌍 Tendermint node: http://0.0.0.0:26657
+  🌍 Blockchain API: http://0.0.0.0:1317
+  🌍 Token faucet: http://0.0.0.0:4500
+  
+  ⋆ Data directory: ~/.sevdays
+  ⋆ App binary: ~/go/bin/sevdaysd
+  
+  Press the 'q' key to stop serve
+```
+
+Store the contract code on the chain: 
 
 ```shell
 $ sevdaysd tx wasm store ./walking-contract/target/wasm32-unknown-unknown/release/walking_contract.wasm --from alice --chain-id sevdays --gas 10000000 -y
-$ sevdaysd q wasm list-code
-$ sevdaysd q wasm code-info 1
-$ sevdaysd tx wasm instantiate 1 {} --label walking_contract --no-admin --from alice --chain-id sevdays
-$ sevdaysd q wasm list-contract-by-code 1
-$ sevdaysd q wasm contract cosmos14hj2tavq8fpesdwxxcu44rty3hh90vhujrvcmstl4zr3txmfvw9s4hmalr
-$ sevdaysd tx wasm execute cosmos14hj2tavq8fpesdwxxcu44rty3hh90vhujrvcmstl4zr3txmfvw9s4hmalr '{"increment":{}}' --from alice --chain-id sevdays
-$ sevdaysd q wasm contract-state smart cosmos14hj2tavq8fpesdwxxcu44rty3hh90vhujrvcmstl4zr3txmfvw9s4hmalr '{"count":{}}'
-$ sevdaysd tx wasm execute cosmos14hj2tavq8fpesdwxxcu44rty3hh90vhujrvcmstl4zr3txmfvw9s4hmalr '{"increment":{}}' --from alice --chain-id sevdays
-$ sevdaysd q wasm contract-state smart cosmos14hj2tavq8fpesdwxxcu44rty3hh90vhujrvcmstl4zr3txmfvw9s4hmalr '{"count":{}}'
+code: 0
+codespace: ""
+data: ""
+events: []
+gas_used: "0"
+gas_wanted: "0"
+height: "0"
+info: ""
+logs: []
+raw_log: ""
+timestamp: ""
+tx: null
+txhash: 004F6D1421F5FB7CDEE00260ACF6C62924CAAE138A3B4290C32BCDE89362CF83
 ```
+
+Let's check if this transaction was successful:
+
+```shell
+$ sevdaysd query tx --type=hash 004F6D1421F5FB7CDEE00260ACF6C62924CAAE138A3B4290C32BCDE89362CF83 | yq 'del(.tx.body.messages[0].wasm_byte_code)'
+```
+
+Let's list all stored contact codes on the chain (we should see only one):
+
+```shell
+$ sevdaysd q wasm list-code
+code_infos:
+- code_id: "1"
+  creator: cosmos1rche4ezyvjfd5wc4trc78r7jv9g0en4eln8p6g
+  data_hash: 1478E606B86886D210BF12026B0D3CFECB6D869144E1CF3E3872A37F1D7AD8B8
+  instantiate_permission:
+    addresses: []
+    permission: Everybody
+pagination:
+  next_key: null
+  total: "0"
+```
+
+Having `code_id` we can check the code details:
+
+```shell
+$ sevdaysd q wasm code-info 1
+code_id: "1"
+creator: cosmos1rche4ezyvjfd5wc4trc78r7jv9g0en4eln8p6g
+data_hash: 1478E606B86886D210BF12026B0D3CFECB6D869144E1CF3E3872A37F1D7AD8B8
+instantiate_permission:
+  addresses: []
+  permission: Everybody
+```
+
+### Step 3. Instantiate a contract
+
+Instantiate a new contract based on contract code with `code_id = 1`:
+
+```shell
+$ sevdaysd tx wasm instantiate 1 {} --label walking_contract --no-admin --from alice --chain-id sevdays
+auth_info:
+  fee:
+    amount: []
+    gas_limit: "200000"
+    granter: ""
+    payer: ""
+  signer_infos: []
+  tip: null
+body:
+  extension_options: []
+  memo: ""
+  messages:
+  - '@type': /cosmwasm.wasm.v1.MsgInstantiateContract
+    admin: ""
+    code_id: "1"
+    funds: []
+    label: walking_contract
+    msg: {}
+    sender: cosmos1rche4ezyvjfd5wc4trc78r7jv9g0en4eln8p6g
+  non_critical_extension_options: []
+  timeout_height: "0"
+signatures: []
+confirm transaction before signing and broadcasting [y/N]: y
+code: 0
+codespace: ""
+data: ""
+events: []
+gas_used: "0"
+gas_wanted: "0"
+height: "0"
+info: ""
+logs: []
+raw_log: ""
+timestamp: ""
+tx: null
+txhash: BC5D36820AC173AFC60CE5210490EA654F8222E86BC5BF279CC519F6F5771175
+```
+
+Let's list all contract instances created basing on the contract code with `code_id = 1`,
+wes should get a single contract's address.
+
+```shell
+$ sevdaysd q wasm list-contract-by-code 1
+contracts:
+- cosmos14hj2tavq8fpesdwxxcu44rty3hh90vhujrvcmstl4zr3txmfvw9s4hmalr
+pagination:
+  next_key: null
+  total: "0"
+```
+
+To query the details of the contract instance, having it's address, just run:
+```shell
+$ sevdaysd q wasm contract cosmos14hj2tavq8fpesdwxxcu44rty3hh90vhujrvcmstl4zr3txmfvw9s4hmalr
+address: cosmos14hj2tavq8fpesdwxxcu44rty3hh90vhujrvcmstl4zr3txmfvw9s4hmalr
+contract_info:
+  admin: ""
+  code_id: "1"
+  created:
+    block_height: "1326"
+    tx_index: "0"
+  creator: cosmos1rche4ezyvjfd5wc4trc78r7jv9g0en4eln8p6g
+  extension: null
+  ibc_port_id: ""
+  label: walking_contract
+```
+
+### Step 4. Interact with the contract
+
+The example contract has an internal counter we can query, the initial value of the counter should be zero:
+
+```shell
+$ sevdaysd q wasm contract-state smart cosmos14hj2tavq8fpesdwxxcu44rty3hh90vhujrvcmstl4zr3txmfvw9s4hmalr '{"count":{}}'
+data:
+  count: 0
+```
+
+Now let's increment this counter, executing message on the contract:
+
+```shell
+$ sevdaysd tx wasm execute cosmos14hj2tavq8fpesdwxxcu44rty3hh90vhujrvcmstl4zr3txmfvw9s4hmalr '{"increment":{}}' --from alice --chain-id sevdays
+auth_info:
+  fee:
+    amount: []
+    gas_limit: "200000"
+    granter: ""
+    payer: ""
+  signer_infos: []
+  tip: null
+body:
+  extension_options: []
+  memo: ""
+  messages:
+  - '@type': /cosmwasm.wasm.v1.MsgExecuteContract
+    contract: cosmos14hj2tavq8fpesdwxxcu44rty3hh90vhujrvcmstl4zr3txmfvw9s4hmalr
+    funds: []
+    msg:
+      increment: {}
+    sender: cosmos1rche4ezyvjfd5wc4trc78r7jv9g0en4eln8p6g
+  non_critical_extension_options: []
+  timeout_height: "0"
+signatures: []
+confirm transaction before signing and broadcasting [y/N]: y
+code: 0
+codespace: ""
+data: ""
+events: []
+gas_used: "0"
+gas_wanted: "0"
+height: "0"
+info: ""
+logs: []
+raw_log: ""
+timestamp: ""
+tx: null
+txhash: E27286A5CA393D4DBB0039F822607535A6247D09F145E7741CE54825EE349015
+```
+
+Let's check the current counter value:
+
+```shell
+$ sevdaysd q wasm contract-state smart cosmos14hj2tavq8fpesdwxxcu44rty3hh90vhujrvcmstl4zr3txmfvw9s4hmalr '{"count":{}}'
+data:
+  count: 1
+```
+
+Let's increment once again (we have added `-y` at the end, so the transaction is confirmed automatically):
+
+```shell
+$ sevdaysd tx wasm execute cosmos14hj2tavq8fpesdwxxcu44rty3hh90vhujrvcmstl4zr3txmfvw9s4hmalr '{"increment":{}}' --from alice --chain-id sevdays -y
+code: 0
+codespace: ""
+data: ""
+events: []
+gas_used: "0"
+gas_wanted: "0"
+height: "0"
+info: ""
+logs: []
+raw_log: ""
+timestamp: ""
+tx: null
+txhash: 0D1E5A3C848A641D564D97CAED45B7D6D028595DDD888BE2180ED84DDB850926
+```
+
+Let's check the counter now:
+
+```shell
+$ sevdaysd q wasm contract-state smart cosmos14hj2tavq8fpesdwxxcu44rty3hh90vhujrvcmstl4zr3txmfvw9s4hmalr '{"count":{}}'
+data:
+  count: 2
+```
+
+🎉🎉🎉🎉🎉🎉🎉<br/>
+🎉🎉🎉🎉🎉🎉🎉<br/>
+🎉🎉🎉🎉🎉🎉🎉<br/>
+🎉🎉🎉🎉🎉🎉🎉<br/>
+🎉🎉🎉🎉🎉🎉🎉<br/>
+
+## `Day 6.` Query custom module from smart contract
+
+> (tbd)
