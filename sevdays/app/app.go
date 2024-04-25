@@ -19,7 +19,6 @@ import (
 	_ "cosmossdk.io/x/nft/module" // import for side-effects
 	_ "cosmossdk.io/x/upgrade"    // import for side-effects
 	upgradekeeper "cosmossdk.io/x/upgrade/keeper"
-	wasmtypes "github.com/CosmWasm/wasmd/x/wasm/types"
 	dbm "github.com/cosmos/cosmos-db"
 	"github.com/cosmos/cosmos-sdk/baseapp"
 	"github.com/cosmos/cosmos-sdk/client"
@@ -76,8 +75,6 @@ import (
 	ibctransferkeeper "github.com/cosmos/ibc-go/v8/modules/apps/transfer/keeper"
 	ibckeeper "github.com/cosmos/ibc-go/v8/modules/core/keeper"
 
-	wasmkeeper "github.com/CosmWasm/wasmd/x/wasm/keeper"
-	tmproto "github.com/cometbft/cometbft/proto/tendermint/types"
 	sevdaysmodulekeeper "sevdays/x/sevdays/keeper"
 	// this line is used by starport scaffolding # stargate/app/moduleImport
 
@@ -144,11 +141,6 @@ type App struct {
 	ScopedICAHostKeeper       capabilitykeeper.ScopedKeeper
 
 	SevdaysKeeper sevdaysmodulekeeper.Keeper
-
-	// CosmWasm
-	WasmKeeper       wasmkeeper.Keeper
-	ScopedWasmKeeper capabilitykeeper.ScopedKeeper
-
 	// this line is used by starport scaffolding # stargate/app/keeperDeclaration
 
 	// simulation manager
@@ -203,7 +195,6 @@ func New(
 	appOpts servertypes.AppOptions,
 	baseAppOptions ...func(*baseapp.BaseApp),
 ) (*App, error) {
-	overrideWasmVariables()
 	var (
 		app        = &App{}
 		appBuilder *runtime.AppBuilder
@@ -366,9 +357,7 @@ func New(
 		return nil, err
 	}
 
-	return app, app.WasmKeeper.
-		InitializePinnedCodes(app.NewUncachedContext(true, tmproto.Header{}))
-
+	return app, nil
 }
 
 // LegacyAmino returns App's amino codec.
@@ -476,12 +465,4 @@ func BlockedAddresses() map[string]bool {
 		}
 	}
 	return result
-}
-
-// overrideWasmVariables overrides the wasm variables to:
-//   - allow for larger wasm files
-func overrideWasmVariables() {
-	// Override Wasm size limitation from WASMD.
-	wasmtypes.MaxWasmSize = 1024 * 1024 * 2.5 // ~2.5 mb
-	wasmtypes.MaxProposalWasmSize = wasmtypes.MaxWasmSize
 }
