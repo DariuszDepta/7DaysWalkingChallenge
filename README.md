@@ -1,6 +1,7 @@
 # 7 Days Walking Challenge
 
-Challenge inspired and accompanied by [**SEVEN DAYS WALKING**](https://ludovicoeinaudi.com/seven-days-walking/) album by [Ludovico Einaudi](https://ludovicoeinaudi.com/).
+Challenge inspired and accompanied by [**SEVEN DAYS WALKING**](https://ludovicoeinaudi.com/seven-days-walking/)
+album composed by [Ludovico Einaudi](https://ludovicoeinaudi.com/).
 
 ---
 
