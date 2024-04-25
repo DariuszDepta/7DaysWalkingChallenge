@@ -19,6 +19,30 @@ album composed by [Ludovico Einaudi](https://ludovicoeinaudi.com/).
 
 The following steps are based on this documentation: [Ignite CLI](https://docs.ignite.com/)
 
+### Prerequisities
+
+- Install the newest version of [Go](https://go.dev/doc/install).
+    ```shell
+    $ go version
+    go version go1.22.2 linux/amd64
+    ```
+- Install the newest version of [IgniteCLI](https://docs.ignite.com/welcome/install).
+    ```shell
+    $ ignite version
+    Ignite CLI version:             v28.3.0
+    Ignite CLI build date:          2024-03-20T15:31:07Z
+    Ignite CLI source hash:         159abdca88605ed82cb4aabd52618db91069b7af
+    Ignite CLI config version:      v1
+    Cosmos SDK version:             v0.50.5
+    Your OS:                        linux
+    Your arch:                      amd64
+    Your Node.js version:           v21.7.3
+    Your go version:                go version go1.22.2 linux/amd64
+    Your uname -a:                  [...]
+    Your cwd:                       [...]
+    Is on Gitpod:                   false
+    ```
+
 ### Scaffold a chain
 
 Being in the directory where this empty project was cloned for the first time:
