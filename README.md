@@ -830,7 +830,7 @@ pagination:
   total: "0"
 ```
 
-To query the details of the contract instance, having it's address, just run:
+To query the details of the contract instance, having its address, just run:
 ```shell
 $ sevdaysd q wasm contract cosmos14hj2tavq8fpesdwxxcu44rty3hh90vhujrvcmstl4zr3txmfvw9s4hmalr
 address: cosmos14hj2tavq8fpesdwxxcu44rty3hh90vhujrvcmstl4zr3txmfvw9s4hmalr
