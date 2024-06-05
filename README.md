@@ -25,8 +25,8 @@ The following steps are based on this documentation: [Ignite CLI](https://docs.i
 ```shell
 go version
 ```
-Result:
-```text
+
+```
 version go1.22.2 linux/amd64
 ```
 - Install the newest version of [IgniteCLI](https://docs.ignite.com/welcome/install).
