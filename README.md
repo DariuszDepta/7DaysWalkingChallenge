@@ -22,10 +22,12 @@ The following steps are based on this documentation: [Ignite CLI](https://docs.i
 ### Prerequisities
 
 - Install the newest version of [Go](https://go.dev/doc/install).
-    ```shell
-    $ go version
-    go version go1.22.2 linux/amd64
-    ```
+```shell
+go version
+```
+```text
+version go1.22.2 linux/amd64
+```
 - Install the newest version of [IgniteCLI](https://docs.ignite.com/welcome/install).
     ```shell
     $ ignite version
