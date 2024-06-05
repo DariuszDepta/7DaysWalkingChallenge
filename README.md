@@ -30,7 +30,7 @@ The following steps are based on this documentation: [Ignite CLI](https://docs.i
   
   Output:
   ```
-  version go1.22.2 linux/amd64
+  go version go1.22.4 linux/amd64
   ```
 
 - Install the newest version of [IgniteCLI](https://docs.ignite.com/welcome/install).
