@@ -1,62 +1,75 @@
 # 7 Days Walking Challenge
 
 Challenge inspired and accompanied by [**SEVEN DAYS WALKING**](https://ludovicoeinaudi.com/seven-days-walking/)
-album composed by [Ludovico Einaudi](https://ludovicoeinaudi.com/).
+album, composed by [Ludovico Einaudi](https://ludovicoeinaudi.com/).
 
 ---
 
 - [Day 1.](#day-1-scaffolding-a-chain-from-scratch) Scaffolding a chain from scratch
 - [Day 2.](#day-2-adding-a-wasm-module-to-the-chain) Adding a `wasm` module to the chain
-- [Day 3.](#day-3-adding-a-wasm-module-to-the-chain-continued) Adding a `wasm` module to the chain (continued)
-- [Day 4.](#day-4-deploying-a-smart-contract-written-using-sylvia-framework) Deploying a smart contract written using [Sylvia Framework](https://github.com/CosmWasm/sylvia)
-- [Day 5.](#day-5-deploying-a-smart-contract-continued) Deploying a smart contract (continued)
+- [Day 3.](#day-3-deploying-a-smart-contract-written-using-sylvia-framework) Deploying a smart contract written using [Sylvia Framework](https://github.com/CosmWasm/sylvia)
+- [Day 4.](#day-4-deploying-a-smart-contract-continued) Deploying a smart contract (continued)
 
 ---
 
-## `Day 1.` Scaffolding a chain from scratch
+## Day 1. Scaffolding a chain from scratch
 
-> 2024-03-15
-
-The following steps are based on this documentation: [Ignite CLI](https://docs.ignite.com/)
+The following steps are based on this documentation: [Ignite CLI](https://docs.ignite.com)
 
 ### Prerequisities
 
 - Install the newest version of [Go](https://go.dev/doc/install).
 
-  Check installed Go version:
+  Check the installed [Go](https://go.dev/doc/install) version:
+  
   ```shell
   go version
   ```
   
-  Output:
+  _Output:_
+
   ```
   go version go1.22.4 linux/amd64
   ```
 
 - Install the newest version of [IgniteCLI](https://docs.ignite.com/welcome/install).
-    ```shell
-    $ ignite version
-    Ignite CLI version:             v28.3.0
-    Ignite CLI build date:          2024-03-20T15:31:07Z
-    Ignite CLI source hash:         159abdca88605ed82cb4aabd52618db91069b7af
-    Ignite CLI config version:      v1
-    Cosmos SDK version:             v0.50.5
-    Your OS:                        linux
-    Your arch:                      amd64
-    Your Node.js version:           v21.7.3
-    Your go version:                go version go1.22.2 linux/amd64
-    Your uname -a:                  [...]
-    Your cwd:                       [...]
-    Is on Gitpod:                   false
-    ```
+
+  Check the installed [IgniteCLI](https://docs.ignite.com/welcome/install) version: 
+
+  ```shell
+  ignite version
+  ```
+
+  _Output:_
+  
+  ```text
+  Ignite CLI version:             v28.4.0
+  Ignite CLI build date:          2024-05-15T13:42:13Z
+  Ignite CLI source hash:         83ee9ba5f81f2d2104ed91808f2cb72719a23e41
+  Ignite CLI config version:      v1
+  Cosmos SDK version:             v0.50.6
+  Your OS:                        linux
+  Your arch:                      amd64
+  Your Node.js version:           v22.0.0
+  Your go version:                go version go1.22.4 linux/amd64
+  Your uname -a:                  [...]
+  Your cwd:                       [...]
+  Is on Gitpod:                   false
+  ```
 
 ### Scaffold a chain
 
-Being in the directory where this empty project was cloned for the first time:
+Stay inside the directory where this project was cloned.
+
+Scaffold a new chain:
 
 ```shell
-$ ignite scaffold chain sevdays
+ignite scaffold chain sevdays
+````
 
+_Output:_
+
+```text
 ⭐️ Successfully created a new blockchain 'sevdays'.
 👉 Get started with the following commands:
 
@@ -69,9 +82,16 @@ Documentation: https://docs.ignite.com
 ### Run a chain
 
 ```shell
-$ cd sevdays
-$ ignite chain serve
+cd sevdays
+```
 
+```shell
+ignite chain serve
+```
+
+_Output:_
+
+```text
   Blockchain is running
   
   ✔ Added account alice with address cosmos1pzgy9e0cfzsp8uyeg8ux67su2w57erdl8se9dy and mnemonic:
@@ -92,7 +112,9 @@ $ ignite chain serve
 
 Press `q` to stop the chain.
 
-```shell
+_Output:_
+
+```text
   💿 Genesis state saved in ~/.ignite/local-chains/sevdays/exported_genesis.json
   
   𝓲 Stopped
@@ -101,8 +123,12 @@ Press `q` to stop the chain.
 ### Test the chain
 
 ```shell
-$ ignite chain serve
+ignite chain serve
+```
 
+_Output:_
+
+```text
   Blockchain is running
   
   👤 alice's account address: cosmos1pzgy9e0cfzsp8uyeg8ux67su2w57erdl8se9dy
@@ -121,7 +147,12 @@ $ ignite chain serve
 Open another terminal and run:
 
 ```shell
-$ sevdaysd query bank balances cosmos1pzgy9e0cfzsp8uyeg8ux67su2w57erdl8se9dy
+sevdaysd query bank balances cosmos1pzgy9e0cfzsp8uyeg8ux67su2w57erdl8se9dy
+```
+
+_Output_:
+
+```text
 balances:
 - amount: "100000000"
   denom: stake
@@ -133,72 +164,20 @@ pagination:
 
 Press `q` to stop the chain.
 
-```shell
+_Output_:
+
+```text
   💿 Genesis state saved in ~/.ignite/local-chains/sevdays/exported_genesis.json
   
   𝓲 Stopped
 ```
 
-🎉🎉🎉🎉🎉🎉🎉<br/>
-
-### Remarks
-
-During scaffolding a new chain, a custom module is created automatically.
-This module is named `sevdays` (like the chain name) and is placed in the directory named `x`.
+> NOTE: During scaffolding a new chain, a custom module is created automatically.
+> This module is named `sevdays` (like the chain name) and is placed in the directory named `x`.
 
 ---
 
-## `Day 2.` Adding a `wasm` module to the chain
-
-> 2024-03-18
-
-Tried following these instructions: [INTEGRATION](https://github.com/CosmWasm/wasmd/blob/main/INTEGRATION.md).
-
-Installed dependencies:
-
-```shell
-$ go get github.com/CosmWasm/wasmd/x/wasm/keeper@v0.50.0
-go: downloading github.com/CosmWasm/wasmd v0.50.0
-go: module github.com/golang/protobuf is deprecated: Use the "google.golang.org/protobuf" module instead.
-go: added github.com/CosmWasm/wasmd v0.50.0
-go: added github.com/CosmWasm/wasmvm v1.5.0
-```
-
-Added dependencies to `app.go` file and tried to compile:
-
-```shell
-$ ignite chain serve
-
-  cannot build app:                                                                          
-                                                                                             
-  error while running command go install github.com/bufbuild/buf/cmd/buf                     
-  github.com/cosmos/gogoproto/protoc-gen-gocosmos                                            
-  google.golang.org/grpc/cmd/protoc-gen-go-grpc                                              
-  google.golang.org/protobuf/cmd/protoc-gen-go                                               
-  github.com/cosmos/cosmos-proto/cmd/protoc-gen-go-pulsar                                    
-  github.com/grpc-ecosystem/grpc-gateway/protoc-gen-grpc-gateway                             
-  github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2: #                          
-  github.com/bufbuild/buf/private/pkg/protosource                                            
-  ../../../go/pkg/mod/github.com/bufbuild/buf@v1.28.1/private/pkg/protosource/file.go:146:39:
-  f.fileDescriptor.GetOptions().GetPhpGenericServices undefined (type                        
-  *descriptorpb.FileOptions has no field or method GetPhpGenericServices)                    
-  : exit status 1                                                                            
-  
-  Waiting for a fix before retrying...
-  
-  Press the 'q' key to stop serve
-```
-
-💣💣💣💣💣💣💣</br>
-💣💣💣💣💣💣💣</br>
-
-The first try has failed...
-
----
-
-## `Day 3.` Adding a `wasm` module to the chain (continued)
-
-> 2024-03-21
+## Day 2. Adding a `wasm` module to the chain
 
 This time we are basing on this: [Ignite CLI Wasm App](https://github.com/ignite/apps/tree/main/wasm)
 
@@ -362,10 +341,6 @@ pagination:
   total: "0"
 ```
 
-🎉🎉🎉🎉🎉🎉🎉<br/>
-🎉🎉🎉🎉🎉🎉🎉<br/>
-🎉🎉🎉🎉🎉🎉🎉<br/>
-
 ### Step 7. `Every rose 🌹 has its thorn þ.`
 
 > þ - [thorn](https://en.wikipedia.org/wiki/Thorn_(letter))
@@ -389,10 +364,6 @@ created by github.com/cosmos/cosmos-sdk/types/module.(*Manager).ExportGenesisFor
 : exit status 2                     
 ```
 
-💣💣💣💣💣💣💣</br>
-💣💣💣💣💣💣💣</br>
-💣💣💣💣💣💣💣</br>
-
 Is it something we can handle or fix?
 
 The error shown above disappears after single state reset: 
@@ -400,9 +371,7 @@ The error shown above disappears after single state reset:
 $ ignite chain serve --reset-once
 ```
 
-## `Day 4.` Deploying a smart contract written using [Sylvia Framework](https://github.com/CosmWasm/sylvia)
-
-> 2024-03-27
+## Day 3. Deploying a smart contract written using [Sylvia Framework](https://github.com/CosmWasm/sylvia)
 
 In the [walking-contract](./walking-contract) directory there is a smart contract prepared.
 This simplistic smart contract was designed using [Sylvia Framework](https://github.com/CosmWasm/sylvia). 
@@ -610,17 +579,9 @@ The error is:
 ```text
 "raw_log": "failed to execute message; message index: 0: uncompress wasm archive: max 819200 bytes: exceeds limit: create wasm contract failed",
 ```
-
-💣💣💣💣💣💣💣</br>
-💣💣💣💣💣💣💣</br>
-💣💣💣💣💣💣💣</br>
-💣💣💣💣💣💣💣</br>
-
 So there must be an option to increase this parameter...
 
-## `Day 5.` Deploying a smart contract (continued)
-
-> 2024-03-28
+## Day 4. Deploying a smart contract (continued)
 
 ### Step 1. Fix: change the maximum allowed contract size 
 
@@ -939,12 +900,6 @@ data:
   count: 2
 ```
 
-🎉🎉🎉🎉🎉🎉🎉<br/>
-🎉🎉🎉🎉🎉🎉🎉<br/>
-🎉🎉🎉🎉🎉🎉🎉<br/>
-🎉🎉🎉🎉🎉🎉🎉<br/>
-🎉🎉🎉🎉🎉🎉🎉<br/>
-
-## `Day 6.` Query custom module from smart contract
+## Day 5. Query custom module from smart contract
 
 > (tbd)
