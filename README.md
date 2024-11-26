@@ -26,10 +26,10 @@ The following steps are based on this documentation: [Ignite CLI](https://docs.i
   go version
   ```
   
-  _Output:_
+  Output:
 
-  ```
-  go version go1.22.4 linux/amd64
+  ```text
+  go version go1.23.3 linux/amd64
   ```
 
 - Install the newest version of [IgniteCLI](https://docs.ignite.com/welcome/install).
