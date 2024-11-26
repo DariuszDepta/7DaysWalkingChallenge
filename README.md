@@ -903,3 +903,67 @@ data:
 ## Day 5. Query custom module from smart contract
 
 > (tbd)
+> 
+> 
+>
+
+## Day 6. Create a custom query
+
+Create a custom query named `sum`.
+
+```shell
+$ ignite scaffold query sum valueX:uint valueY:uint --response valueSum:uint
+```
+
+Output:
+
+```text
+modify proto/sevdays/sevdays/query.proto
+create x/sevdays/keeper/query_sum.go
+modify x/sevdays/module/autocli.go
+
+🎉 Created a query `sum`.
+```
+
+This file was added and modified: `x/sevdays/keeper/query_sum.go`
+
+```Go
+package keeper
+
+import (
+	"context"
+
+	"sevdays/x/sevdays/types"
+
+	sdk "github.com/cosmos/cosmos-sdk/types"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
+)
+
+func (k Keeper) Sum(goCtx context.Context, req *types.QuerySumRequest) (*types.QuerySumResponse, error) {
+	if req == nil {
+		return nil, status.Error(codes.InvalidArgument, "invalid request")
+	}
+	_ = sdk.UnwrapSDKContext(goCtx)
+	sum := req.ValueX + req.ValueY
+	return &types.QuerySumResponse{ValueSum: sum}, nil
+}
+```
+
+Start the chain:
+
+```shell
+$ ignite chain serve
+```
+
+Open another terminal and test the custom query:
+
+```shell
+$ sevdaysd query sevdays sum 1 2
+```
+
+Output:
+
+```text
+valueSum: "3"
+```
