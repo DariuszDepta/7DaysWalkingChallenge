@@ -340,9 +340,7 @@ pagination:
   total: "0"
 ```
 
-### Step 7. `Every rose 🌹 has its thorn þ.`
-
-> þ - [thorn](https://en.wikipedia.org/wiki/Thorn_(letter))
+### Step 7. When you get this error...
 
 Stop the chain by pressing `q`:
 
@@ -363,9 +361,7 @@ created by github.com/cosmos/cosmos-sdk/types/module.(*Manager).ExportGenesisFor
 : exit status 2                     
 ```
 
-Is it something we can handle or fix?
-
-The error shown above disappears after single state reset: 
+This error shown above disappears after single state reset: 
 ```shell
 $ ignite chain serve --reset-once
 ```
