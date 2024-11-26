@@ -40,21 +40,20 @@ The following steps are based on this documentation: [Ignite CLI](https://docs.i
   ignite version
   ```
 
-  _Output:_
+  Output:
   
   ```text
-  Ignite CLI version:             v28.4.0
-  Ignite CLI build date:          2024-05-15T13:42:13Z
-  Ignite CLI source hash:         83ee9ba5f81f2d2104ed91808f2cb72719a23e41
-  Ignite CLI config version:      v1
-  Cosmos SDK version:             v0.50.6
-  Your OS:                        linux
-  Your arch:                      amd64
-  Your Node.js version:           v22.0.0
-  Your go version:                go version go1.22.4 linux/amd64
-  Your uname -a:                  [...]
-  Your cwd:                       [...]
-  Is on Gitpod:                   false
+  Ignite CLI version:           v28.5.3
+  Ignite CLI build date:        2024-09-20T14:49:06Z
+  Ignite CLI source hash:       b6eb44caf312dfdd1f2fdb5a95b13b365373892f
+  Ignite CLI config version:    v1
+  Cosmos SDK version:           v0.50.9
+  Your OS:                      linux
+  Your arch:                    amd64
+  Your go version:              go version go1.23.3 linux/amd64
+  Your uname -a:                [...]
+  Your cwd:                     [...]
+  Is on Gitpod:                 false
   ```
 
 ### Scaffold a chain
