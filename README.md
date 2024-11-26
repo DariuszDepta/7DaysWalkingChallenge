@@ -66,7 +66,7 @@ Scaffold a new chain:
 ignite scaffold chain sevdays
 ````
 
-_Output:_
+Output:
 
 ```text
 ⭐️ Successfully created a new blockchain 'sevdays'.
@@ -88,7 +88,7 @@ cd sevdays
 ignite chain serve
 ```
 
-_Output:_
+Output:
 
 ```text
   Blockchain is running
@@ -111,7 +111,7 @@ _Output:_
 
 Press `q` to stop the chain.
 
-_Output:_
+Output:
 
 ```text
   💿 Genesis state saved in ~/.ignite/local-chains/sevdays/exported_genesis.json
@@ -125,7 +125,7 @@ _Output:_
 ignite chain serve
 ```
 
-_Output:_
+Output:
 
 ```text
   Blockchain is running
@@ -149,7 +149,7 @@ Open another terminal and run:
 sevdaysd query bank balances cosmos1pzgy9e0cfzsp8uyeg8ux67su2w57erdl8se9dy
 ```
 
-_Output_:
+Output:
 
 ```text
 balances:
@@ -163,7 +163,7 @@ pagination:
 
 Press `q` to stop the chain.
 
-_Output_:
+Output:
 
 ```text
   💿 Genesis state saved in ~/.ignite/local-chains/sevdays/exported_genesis.json
