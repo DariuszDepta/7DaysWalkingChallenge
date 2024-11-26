@@ -334,6 +334,11 @@ In another terminal, run:
 
 ```shell
 $ sevdaysd q wasm pinned
+```
+
+Output:
+
+```text
 code_ids: []
 pagination:
   next_key: null
